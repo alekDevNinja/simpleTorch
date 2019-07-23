@@ -15,7 +15,6 @@ import android.hardware.camera2.CaptureRequest;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.util.Size;
 import android.view.Surface;
 import android.widget.CompoundButton;
@@ -137,8 +136,7 @@ public class Flashlight extends Activity {
 
         @Override
         public void onConfigureFailed(CameraCaptureSession session) {
-            Log.i("CameraStateCallback", "onConfigureFailed()");
-        }
+                    }
 
     }
 
@@ -209,13 +207,13 @@ public class Flashlight extends Activity {
 
         @Override
         public void onDisconnected(CameraDevice camera) {
-            Log.i("CameraCallback", "CameraDevice has disconnected");
+
 
         }
 
         @Override
         public void onError(CameraDevice camera, int error) {
-            Log.i("CameraCallback", "CameraDevice had error: " + error);
+
         }
     }
 
