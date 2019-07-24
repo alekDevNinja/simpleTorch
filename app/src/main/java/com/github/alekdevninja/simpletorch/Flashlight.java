@@ -37,7 +37,7 @@ Flashlight icon credits goes to Kiran Shastry -> https://www.flaticon.com/free-i
 
  */
 
-
+//test - from dev branch
 public class Flashlight extends Activity {
     private CameraDevice cameraDevice;
     private CameraManager cameraManager;
