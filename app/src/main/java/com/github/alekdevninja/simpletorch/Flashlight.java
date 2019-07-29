@@ -3,6 +3,7 @@ package com.github.alekdevninja.simpletorch;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.SurfaceTexture;
 import android.hardware.camera2.CameraAccessException;
@@ -73,6 +74,9 @@ public class Flashlight extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // keeps screen orientation fixed whole time - no need to flip the screen
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
         try {
             initializeCameraManager();
         } catch (CameraAccessException e) {
@@ -136,7 +140,7 @@ public class Flashlight extends Activity {
 
         @Override
         public void onConfigureFailed(CameraCaptureSession session) {
-                    }
+        }
 
     }
 
