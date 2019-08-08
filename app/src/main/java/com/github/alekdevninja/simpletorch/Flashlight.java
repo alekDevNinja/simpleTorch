@@ -18,6 +18,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Size;
 import android.view.Surface;
+import android.view.WindowManager;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.Toast;
@@ -76,6 +77,9 @@ public class Flashlight extends Activity {
 
         // keeps screen orientation fixed whole time - no need to flip the screen
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        // keeps screen always active until user exits the app manually
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         try {
             initializeCameraManager();
@@ -222,20 +226,3 @@ public class Flashlight extends Activity {
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
