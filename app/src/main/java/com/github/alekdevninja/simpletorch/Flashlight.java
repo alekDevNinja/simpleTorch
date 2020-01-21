@@ -49,8 +49,70 @@ public class Flashlight extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //check for device permissions
+        permissionCheck();
+
+        //startup the main task
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
 
+        onStart();
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        // keeps screen orientation fixed whole time - no need to flip the screen
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        // keeps screen always active until user exits the app manually
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+        try {
+            initializeCameraManager();
+        } catch (CameraAccessException e) {
+            e.printStackTrace();
+        }
+
+        // main ON/OFF light button listener
+        Switch mainSwitch = findViewById(R.id.button_main_switch);
+        mainSwitch.setChecked(true); //flashlight will be ON on start by default
+        mainSwitch.setOnCheckedChangeListener(new OnOffButtonListener());
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        onStart();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+        onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        onStart();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        onStart();
+    }
+
+    private void permissionCheck() {
         // Checking if the hardware camera permission is already given
         if (ContextCompat.checkSelfPermission(Flashlight.this, Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -71,27 +133,8 @@ public class Flashlight extends Activity {
         } else {
             // Permission has already been granted - just carry on
         }
-
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        // keeps screen orientation fixed whole time - no need to flip the screen
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
-        // keeps screen always active until user exits the app manually
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-
-        try {
-            initializeCameraManager();
-        } catch (CameraAccessException e) {
-            e.printStackTrace();
-        }
-
-        // main ON/OFF light button listener
-        Switch mainSwitch = findViewById(R.id.button_main_switch);
-        mainSwitch.setChecked(true); //flashlight will be ON on start by default
-        mainSwitch.setOnCheckedChangeListener(new OnOffButtonListener());
     }
+
 
     @SuppressWarnings("ResourceType")
     private void initializeCameraManager() throws CameraAccessException {

@@ -11,6 +11,7 @@
     <Switch
         android:id="@+id/button_main_switch"
         android:switchMinWidth="150dp"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         />
