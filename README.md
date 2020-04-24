@@ -10,7 +10,7 @@ App is made in plain Java. I've made it mostly to learn the publishing process o
 
 If you have any suggestions send me a mail, my current contact address is always in the app description on the market page.
 
-Plans for the future? I'll be looking for a way to not use the camera permission as it scares people away from simple apps like this one. Didn't find a solution for this up to this day (2020.01.21).
+Plans for the future? I'll be looking for a way to not use the camera permission as it scares people away from simple apps like this one. Didn't find a solution for this up to this day (2020.04.24).
 
 Quick preview:
 
