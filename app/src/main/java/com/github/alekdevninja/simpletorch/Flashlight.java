@@ -46,6 +46,7 @@ public class Flashlight extends Activity {
     private CaptureRequest.Builder captureRequestBuilder;
     private CameraCaptureSession cameraCaptureSession;
     private int MY_PERMISSIONS_REQUEST_CAMERA;
+    private Switch mainSwitch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,18 +56,14 @@ public class Flashlight extends Activity {
         //startup the main task
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        mainSwitch = findViewById(R.id.button_main_switch);
 
         onStart();
-
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-
-        // keeps screen orientation fixed whole time - no need to flip the screen
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         // keeps screen always active until user exits the app manually
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -78,38 +75,9 @@ public class Flashlight extends Activity {
         }
 
         // main ON/OFF light button listener
-        Switch mainSwitch = findViewById(R.id.button_main_switch);
         mainSwitch.setChecked(true); //flashlight will be ON on start by default
         mainSwitch.setOnCheckedChangeListener(new OnOffButtonListener());
 
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        onStart();
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-
-        onStart();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-
-        onStart();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-        onStart();
     }
 
     private void permissionCheck() {
@@ -134,7 +102,6 @@ public class Flashlight extends Activity {
             // Permission has already been granted - just carry on
         }
     }
-
 
     @SuppressWarnings("ResourceType")
     private void initializeCameraManager() throws CameraAccessException {
@@ -195,13 +162,18 @@ public class Flashlight extends Activity {
 
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//            isChecked = Flashlight.isIsChecked();
             try {
                 if (isChecked) {
+//                    Flashlight.setIsChecked(true);
                     captureRequestBuilder.set(CaptureRequest.FLASH_MODE, CameraMetadata.FLASH_MODE_TORCH);
                     cameraCaptureSession.setRepeatingRequest(captureRequestBuilder.build(), null, null);
+
                 } else {
+
                     captureRequestBuilder.set(CaptureRequest.FLASH_MODE, CameraMetadata.FLASH_MODE_OFF);
                     cameraCaptureSession.setRepeatingRequest(captureRequestBuilder.build(), null, null);
+
                 }
             } catch (CameraAccessException e) {
                 e.printStackTrace();
